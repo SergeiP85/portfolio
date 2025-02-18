@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sergei's Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="icon" type="image/png" href="static/images/favicon.png">
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZ9CXS4G1X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZZ9CXS4G1X');
+</script>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+</head>
+
+<body>
+<!-- templates/index.html -->
+{% extends "layout.html" %}
+
+{% block content %}
+    <main>
+        <section class="hero container">
+            <div class="hero-blue">
+                <div>
+                    <h1><small>{{ hero.title }}</small>
+                        {{ hero.subtitle }}
+                    </h1>
+                    <p>
+                        {{ hero.description|safe }}
+                        <span id="hiddenText">{{ hero.hidden_text|safe }}</span>
+                        <button id="toggleMainTextButton">more</button>
+                    </p>
+                    <div class="call-to-action">
+                        <a href="{{ hero.resume_link }}" class="button black">
+                            Download Resume
+                        </a>
+                        <a href="{{ hero.email_link }}" class="button white">
+                            E-mail Me
+                        </a>
+                    </div>
+                    <div class="social-links">
+                        <a href="{{ hero.github_link }}">
+                            <img src="static/images/github.png" alt="GitHub" width="48" />
+                        </a>
+                        <a href="{{ hero.linkedin_link }}">
+                            <img src="static/images/linkedin.png" alt="LinkedIn" width="48" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-yellow">
+                <div class="text-wrapper"></div>
+                <img src="static/images/sergei.png" alt="Sergei P" width="100%" />
+            </div>
+        </section>
+
+        <section class="logos container">
+            <small>My development stack aspirations. Check out my repositories in the eponymous section below</small>
+            <div class="marquee">
+                <div class="track">
+                    <img src="static/images/html.png" alt="HTML" width="128" />
+                    <img src="static/images/css.png" alt="CSS" width="128" />
+                    <img src="static/images/javascript.png" alt="JS" width="128" />
+                    <img src="static/images/sass.png" width="128" alt="Sass" />
+                    <img src="static/images/react.png" width="128" alt="React" />
+                    <img src="static/images/nextjs.png" width="128" alt="Next JS" />
+                    <img src="static/images/azure.png" width="128" alt="Azure" />
+                    <img src="static/images/vscode.png" width="128" alt="VS Code" />
+                    <img src="static/images/python.png" width="128" alt="Python" />
+                    <img src="static/images/html.png" alt="HTML" width="128" />
+                    <img src="static/images/css.png" alt="CSS" width="128" />
+                    <img src="static/images/javascript.png" alt="JS" width="128" />
+                    <img src="static/images/sass.png" width="128" alt="Sass" />
+                    <img src="static/images/react.png" width="128" alt="React" />
+                    <img src="static/images/nextjs.png" width="128" alt="Next JS" />
+                    <img src="static/images/azure.png" width="128" alt="Azure" />
+                    <img src="static/images/vscode.png" width="128" alt="VS Code" />
+                    <img src="static/images/python.png" width="128" alt="Python" />
+
+                </div>
+            </div>
+        </section>
+        <section id="skills" class="skills container">
+            <h2>
+                <small>About Me</small>
+                Skills
+            </h2>
+            <div class="holder-blue">
+                <div class="left-column">
+                    <h3>Web Development</h3>
+                    <ul id="frontend-skills-list">
+                    </ul>
+                    <h3>Communications</h3>
+                    <ul id="comm-skills-list"></ul>
+                    <button id="toggleCommSkillsButton">more</button>                   
+                </div>
+                <div class="right-column">
+                    <h3>{{ about_me_section.title }}</h3>
+                    <div>{{ about_me_section.content|safe }}</div>
+                </div>
+            </div>
+        </section>
+        <section id="experience" class="work-experience container">
+            <h2>
+                <small>Legacy</small>
+                Work Experience
+            </h2>
+            <div class="jobs">
+                {% for exp in experiences %}
+                    <article>
+                        <figure>
+                            <img src="{{ exp.image_url }}" alt="{{ exp.company_name }}" width="100%"/>
+                            <figcaption>{{ exp.company_name }}</figcaption>
+                        </figure>                      
+                        <h3>{{ exp.job_title }}</h3>
+                        <div>{{ exp.years }}</div>
+                        <p>{{ exp.description }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+        <section id="projects" class="bento container">
+			<h2>
+				<small>
+					Achievements
+				</small>
+                Projects and Awards
+			</h2>
+			<div class="bento-grid">
+				<a href="https://abazhur.rivelty.ru/case-x5-riawards-2022/" class="bento-item">
+					<img src="static/images/ria.webp" alt="Russian Intranet Awards" width="100%" />
+                    <figcaption>X5 Group gets the award after our Intranet team finished renovation and migrations from 9 SharePoint-based portals into 1 in-house solution</figcaption>
+				</a>
+				<a href="#" class="bento-item">
+					<img src="static/images/ambassadorspec.webp" alt="Corporate culture promo" width="100%" />
+                    <figcaption>Producing corporate culture ambassadors' video at PEC Holding</figcaption>
+				</a>
+				<a href="#" class="bento-item">
+					<img src="static/images/x5townhall - Copy.webp" alt="Strategy Sumit Event" width="100%" />
+                    <figcaption>In charge of X5 Group stategy reveal event</figcaption>
+				</a>
+				<a href="#" class="bento-item">
+					<img src="static/images/25ynovikom.webp" alt="project 4" width="100%" />
+                    <figcaption>Hosting Novikom Bank's 25th anniversary</figcaption> 
+				</a>
+				<a href="https://www.youtube.com/watch?v=3uFr-1-9Qig" class="bento-item">
+					<img src="static/images/hrimpact.webp" alt="project 5" width="100%" />
+                    <figcaption>PEC Holding received an award after my Intranet team and I completed a new DEI section for ~5,000 foreign employee</figcaption>
+				</a>
+				<a href="#" class="bento-item">
+					<img src="static/images/intranetx5.webp" alt="project 6" width="100%" />
+                    <figcaption>Spearheading the X5 Group Intranet communities, overseeing the code of conduct and gamification rules, and recognizing employees' engagement on the portal through the internal merchandise shop</figcaption>
+				</a>
+			</div>
+		</section>
+
+        <section class="container">
+            <h2>
+                <small>
+                    Frontend Development 
+                </small>
+                Repositories Portfolio
+            </h2>
+            <div class="git-app">
+                <form class="search-form" data-search-form>
+                    <input type="text" class="search-input" placeholder="Enter GIT Hub Username..." data-search-input>
+                    <button type="submit" class="search-button">Search</button>
+                </form>
+                    <div class="user-info-container" data-user-info-container></div>
+                    <div class="repos-container" data-repos-container></div>
+                
+            </div>
+        </section>
+
+<!--ref section-->
+<section id="references" class="references">
+    <h2>
+        <small>
+            References
+        </small>
+        Quotes
+    </h2>
+    <!--ref 1-->
+    <div class="wrapper">
+        <div class="ref-card">
+            <img src="static/images/quote.png" alt="quote">
+            <p>I had the pleasure of working with Sergei at Deutsche Bank starting in 2010. He supported me with internal communications campaigns, press relations, and media events, always showing great organization and reliability. He handled tasks efficiently and worked well under tight deadlines. His help was essential to the success of our department.</p>
+            
+            <p class="rev">I can recommend him for any role that values communication and teamwork.</p>
+            <img class="reviewer" src="static/images/marietta.jpg" alt="colleague 1">
+            <a href="https://www.linkedin.com/in/mariettanikolaeva/"><h3>Marietta Nikolaeva</h3></a>
+            <small>Head of Internal Communications, UniCredit Bank</small>
+        </div>
+    <!--ref 2-->
+        <div class="ref-card">
+            <img src="static/images/quote.png" alt="quote">
+            <p>I worked with Sergei in 2020-2023 during the development and launch of a new intranet product at X5 Retail Group, the leader in food retail in Russia. Sergei managed content and employee communications, successfully building a community of engaged platform users.
+            He also introduced gamification strategies that significantly boosted engagement. Sergei contributed to the product’s growth and evolution by ensuring all tasks were completed on time and aligned with the project goals. His efforts had a noticeable impact on employee interaction and engagement with the new platform.</p>
+            
+            <p class="rev">I highly recommend him for any role involving intranet management, internal communications, and employee engagement.</p>
+            <img class="reviewer" src="static/images/mokhtina.jpg" alt="colleague 2">
+            <a href="https://www.linkedin.com/in/olga-mokhtina-60630238/"><h3>Olga Mokhtina</h3></a>
+            <small>Intranet Project Manager, X5 Retail Group</small>
+        </div>
+    <!--ref 3-->
+        <div class="ref-card">
+            <img src="static/images/quote.png" alt="quote">
+            <p>Sergei joined our Comms&CSR team in 2010 and during his time at Deutsche Bank he proved himself to be a true Comms professional with a strong focus on internal communications and intranet management. Sergei supported the team in organizing corporate events locally and abroad and creating engaging newsletters that kept employees informed and connected. He also introduced new features and tools that made the intranet platform more interactive and effective. Sergei is easy to work with, reliable, and always ready to help the team.</p>
+            
+            <p class="rev">I recommend him for any role in communications and intranet management.</p>
+            <img class="reviewer" src="/static/images/latysheva.jpg" alt="colleague 3">
+            <a href="https://www.linkedin.com/in/olga-latysheva-7a672a19/"><h3>Olga Latysheva</h3></a>
+            <small>Head of PR, Communications and Marketing, Deutsche Bank</small>
+        </div>
+    <!--ref 4-->
+        <div class="ref-card">
+            <img src="static/images/quote.png" alt="quote">
+            <p>Sergei was a valuable member of our Corporate Culture and HR team since he joined PEC Holding in 2023. He demonstrated exceptional creativity and professionalism in editing photos and videos, producing engaging content that promoted corporate culture and values. He successfully revamped our corporate Intranet, enhancing its UX/UI and adding interactive features that boosted employee engagement. Notably, he created a new Intranet section for international colleagues, earning our company a national HR award for inclusive workplace practices.</p>
+            
+            <p class="rev">I highly recommend him for any communications or Intranet management role.</p>
+            <img class="reviewer" src="static/images/meredova.jpg" alt="colleague 4">
+            <a href="https://www.linkedin.com/in/anastasia-meredova-40467334b/"><h3>Anastasia Meredova</h3></a>
+            <small>Internal Communications Manager, PEC Logistics</small>
+        </div>
+    </div>
+<div>
+    <small>See all recommendations on my <a href="https://www.linkedin.com/in/sergeipastushenkonenewyork/details/recommendations/?detailScreenTabIndex=0" target="_blank">&nbsplinkedin page</a></small>
+</div>
+</section>
+
+        <section class="chatbot container">
+			<h2>
+				<small>
+					Talk to me (soon)
+				</small>
+				Chatbot
+			</h2>
+			<div class="chatbot-blue">
+				<div class="chat-info">
+					<h3>Azure AI Chatbot</h3>
+					<p>I've put together a chatbot here which knows all my skills, work experience and has a copy of my CV. You can use it to ask questions about me to get a better idea of who I am and what I've done.</p>
+					<p>You can also download my resume here if you want to take a look at it. If you have a project you think I'd be a good fit for, please get in touch!</p>
+					<a href="static/files/Resume_Sergei_P.docx" class="button black">Download Resume</a>
+				</div>
+				<div class="chat-box">
+					<div class="scroll-area">
+						<ul id="chat-log">
+							<li>
+								<span class="avatar bot">AI</span>
+								<div class="message">
+									Hi, I'm a chatbot that lets you interact with this portfolio and CV. How can I help?
+								</div>
+							</li>
+							<li>
+								<span class="avatar user">User</span>
+								<div class="message">
+									I have a question to ask you about this resume
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="chat-message">
+						<input type="text" placeholder="Hey Sergei, what skills are you best at?">
+						<button class="button black">Send</button>
+					</div>
+				</div>
+			</div>
+		</section>
+    </main>
+    <script src="static/js/index.js"></script>
+    <script src="static/js/winter.js"></script>
+    <script src="static/js/skills.js"></script>
+    <script src="static/js/gituser.js" defer></script>
+
+        <!-- Calendly badge widget begin -->
+        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+        <script type="text/javascript">
+            window.onload = function() { 
+                Calendly.initBadgeWidget({ 
+                    url: 'https://calendly.com/spastushenko85', 
+                    text: 'Schedule time with me', 
+                    color: '#0a61ae', 
+                    textColor: '#ffffff', 
+                    branding: true 
+                }); 
+            }
+        </script>
+        <!-- Calendly badge widget end -->
+
+        {% endblock %}
+        
+</body>
+
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sergei's Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="icon" type="image/png" href="../images/favicon.png">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZZ9CXS4G1X"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZZ9CXS4G1X');
+    </script>
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <a href="#" class="logo-holder">
+            <div class="logo">SP</div>
+            <div class="logo-text">Portfolio Website</div>
+        </a>
+        <nav>
+            <ul id="menu">
+                <li>
+                    <a href="https://www.sergeiweb.com/#">Home</a>
+                </li>
+                <li>
+                    <a href="https://www.sergeiweb.com/#skills">Skills</a>
+                </li>
+                <li>
+                    <a href="https://www.sergeiweb.com/#experience">Experience</a>
+                </li>
+                <li>
+                    <a href="https://www.sergeiweb.com/#projects">Achievements</a>
+                </li>
+                <li>
+                    <a href="https://www.sergeiweb.com/#references">References</a>
+                </li>
+                <li>
+                    <a href="mailto:info@sergeiweb.com" class="button">E-mail Me</a>
+                </li>
+            </ul>
+            <a href="#" class="mobile-toggle" onClick="toggleMobileMenu(event);">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10" />
+                </svg>
+            </a>
+        </nav>
+    </header>
+    <!-- content -->
+    <section class="hero container">
+        <div class="hero-blue">
+            <div>
+                <h1>Header</h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt vitae laboriosam delectus soluta nisi cumque ducimus quis sapiente. Aut nostrum excepturi ullam nihil, neque in laborum dolorem quidem consectetur ratione?<b> Lorem ipsum dolor</b>
+                    <span id="hiddenText">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nihil optio nulla temporibus reprehenderit vel ratione, dicta facilis eos porro blanditiis quia perspiciatis, deleniti quos nemo aliquam voluptatem recusandae atque. Iste.</span>
+                    <button id="toggleMainTextButton">more</button>
+                </p>
+            </div>
+        </div>
+    </section>
+
+<!-- key blocks of the page -->
+<section class="quote">
+    <blockquote>«Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis optio, reiciendis incidunt voluptas eaque exercitationem veritatis voluptate sint sunt odit accusamus. Fugit ut optio ipsum soluta, tempore recusandae eligendi totam.»</blockquote>
+</section>
+
+<section class="section-style text-block">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo obcaecati veniam enim eius non ratione. Possimus neque dicta architecto, rem praesentium obcaecati nostrum optio distinctio, voluptatum quos numquam soluta aut tempora ut amet facilis officiis reprehenderit animi porro. Cum ipsam incidunt beatae quidem quibusdam, optio illo consequatur pariatur totam debiti. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corporis, a.</p>
+</section>
+
+<section class="section-style text-image-left">
+    <img src="../images/azure.png" alt="Пример изображения">
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptates perspiciatis voluptatibus aperiam recusandae cupiditate explicabo provident quidem commodi voluptatum eos iusto eum quis, itaque, accusantium eius voluptate nostrum, veniam cumque possimus! Quaerat vero enim dolores exercitationem modi quod id dolorum.</p>
+</section>
+
+<section class="image-text-grid">
+    <div class="item"><img src="../images/html.png" alt="Image 1">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum voluptatem deleniti quae perspiciatis voluptatum incidunt dolores illo facilis ipsam nam?</p>
+    </div>
+    <div class="item"><img src="../images/css.png" alt="Image 2">
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus officia debitis quas dicta architecto quibusdam laborum magni? Deserunt, eos qui.</p>
+    </div>
+    <div class="item"><img src="../images/javascript.png" alt="Image 3">
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati maxime facere ipsa aspernatur laboriosam maiores officia nemo sint numquam voluptatum.</p>
+    </div>
+</section>
+
+<section class="table-section">
+    <table>
+        <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+        </tr>
+        <tr>
+            <td>Lorem, ipsum dolor. 1</td>
+            <td>Lorem, ipsum dolor. 2</td>
+        </tr>
+    </table>
+</section>
+
+<section class="full-image">
+    <img src="../images/ria.webp" alt="Большое изображение">
+</section>
+
+<section class="lists">
+    <ul class="ul-custom-list">
+        <li>Text</li>
+        <li>Text</li>
+    </ul>
+    <ol class="ol-custom-list">
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+    </ol>
+</section>
+
+<section class="media">
+    <video controls class="video">
+        <source src="video.mp4" type="video/mp4">
+        Lorem ipsum dolor sit amet.
+    </video>
+    <audio controls class="audio">
+        <source src="audio.mp3" type="audio/mpeg">
+        Lorem ipsum dolor sit amet.
+    </audio>
+</section>
+
+<!-- end of key block of the page -->
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="logo">SP</div>
+                <div class="logo-text">Portfolio Website</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Skills</a></li>
+                    <li><a href="#">Experience</a></li>
+                    <li><a href="#">Achievements</a></li>
+                    <li><a href="#">References</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contacts</a></li>
+                </ul>
+            </nav>
+            <div class="footer-copy">
+                © 2025 Sergei's Portfolio Website.
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
