@@ -1,4 +1,5 @@
 ### Admin.py
+from gc import get_count
 from flask import redirect, url_for
 from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
@@ -19,8 +20,19 @@ class MyAdminIndexView(AdminIndexView):
     @expose('/')
     def index(self):
         if not current_user.is_authenticated:
-            return redirect(url_for('app_routes.login'))  # Исправлено на корректный эндпоинт
-        return super().index()
+            return redirect(url_for('app_routes.login'))
+        
+        # Получаем данные для статистики
+        user_count = User.query.count()
+        project_count = Project.query.count()
+        experience_count = Experience.query.count()
+        
+        # Рендерим шаблон с передачей данных
+        return self.render('admin/custom_home.html',
+                           user_count=user_count,
+                           project_count=project_count,
+                           experience_count=experience_count, page_count=Page.query.count())
+
 
 class SecureModelView(ModelView):
     def is_accessible(self):
@@ -30,7 +42,7 @@ class SecureModelView(ModelView):
         return redirect(url_for('app_routes.login'))
 
 # Настраиваем админку с корректным endpoint
-admin = Admin(name='Admin Panel', template_mode='bootstrap3')
+admin = Admin(name='Admin Panel', template_mode='bootstrap3', index_view=MyAdminIndexView())
 
 class ExperienceAdmin(SecureModelView):
     form_columns = ['company_name', 'job_title', 'years', 'description', 'image_url']
@@ -59,3 +71,5 @@ def init_admin(app):
     admin.add_view(SecureModelView(AboutMeSection, db.session))
     admin.add_view(SecureModelView(Experience, db.session))
     admin.add_view(ProjectAdmin(Project, db.session))
+    admin.add_view(SecureModelView(User, db.session, name='Users'))
+    

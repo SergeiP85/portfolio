@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Home</title>
+    <link rel="stylesheet" href="/static/css/admin_styles.css">
+
+</head>
+<body>
+    {% extends 'admin/master.html' %}
+
+    {% block body %}
+    <div class="container py-5">
+        <!-- Welcome Message with Background Card -->
+        <div class="text-center mb-4 p-5 welcome-card">
+            <h1 class="display-5">🔥 Welcome to the Admin Panel!</h1>
+            <p class="lead">Manage site content quickly and easily.</p>
+        </div>
+    
+        <!-- Quick Stats -->
+        <div class="row text-center mb-5">
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">👤 Users</h5>
+                        <p class="card-text display-6">{{ user_count }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">🚀 Projects</h5>
+                        <p class="card-text display-6">{{ project_count }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">💼 Work Experience</h5>
+                        <p class="card-text display-6">{{ experience_count }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">📖 Pages</h5>
+                        <p class="card-text display-6">{{ page_count }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Quick Links -->
+        <div class="mb-5">
+            <h3>🔗 Quick Links:</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{{ url_for('project.index_view') }}">📂 Projects</a></li>
+                <li class="list-group-item"><a href="{{ url_for('user.index_view') }}">👥 Users</a></li>
+                <li class="list-group-item"><a href="{{ url_for('experience.index_view') }}">🏢 Work Experience</a></li>
+                <li class="list-group-item"><a href="{{ url_for('aboutmesection.index_view') }}">🖼️ About Me Section</a></li>
+                <li class="list-group-item"><a href="{{ url_for('page.index_view') }}">📖 Pages</a></li>
+                <li class="list-group-item"><a href="{{ url_for('herocontent.index_view') }}">🎯 Hero Content</a></li>
+            </ul>
+        </div>
+    
+        <!-- Image Upload Instructions with Background -->
+        <div class="mb-5 p-4 image-guide">
+            <h3>🖼️ How to Add an Image:</h3>
+            <ol class="list-group list-group-numbered">
+                <li class="list-group-item">Go to an image hosting site like: <a href="https://imgbb.com/" target="_blank">ImgBB</a>.</li>
+                <li class="list-group-item">Click "Start Uploading" and select your image.</li>
+                <li class="list-group-item">Copy the "Direct Link".</li>
+                <li class="list-group-item">Paste the copied link into the appropriate field in the admin panel.</li>
+            </ol>
+        </div>
+    
+        <!-- Logout Button -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('app_routes.logout') }}" class="button">
+                🚪 Log Out
+            </a>
+        </div>
+    </div>
+    {% endblock %}
+    
+    
+</body>
+</html>
