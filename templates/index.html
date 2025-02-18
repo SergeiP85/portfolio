@@ -129,45 +129,28 @@
                 {% endfor %}
             </div>
         </section>
+      
         <section id="projects" class="bento container">
-			<h2>
-				<small>
-					Achievements
-				</small>
+            <h2>
+                <small>Achievements</small>
                 Projects and Awards
-			</h2>
-			<div class="bento-grid">
-				<a href="https://abazhur.rivelty.ru/case-x5-riawards-2022/" class="bento-item">
-					<img src="static/images/ria.webp" alt="Russian Intranet Awards" width="100%" />
-                    <figcaption>X5 Group gets the award after our Intranet team finished renovation and migrations from 9 SharePoint-based portals into 1 in-house solution</figcaption>
-				</a>
-				<a href="#" class="bento-item">
-					<img src="static/images/ambassadorspec.webp" alt="Corporate culture promo" width="100%" />
-                    <figcaption>Producing corporate culture ambassadors' video at PEC Holding</figcaption>
-				</a>
-				<a href="#" class="bento-item">
-					<img src="static/images/x5townhall - Copy.webp" alt="Strategy Sumit Event" width="100%" />
-                    <figcaption>In charge of X5 Group stategy reveal event</figcaption>
-				</a>
-				<a href="#" class="bento-item">
-					<img src="static/images/25ynovikom.webp" alt="project 4" width="100%" />
-                    <figcaption>Hosting Novikom Bank's 25th anniversary</figcaption> 
-				</a>
-				<a href="https://www.youtube.com/watch?v=3uFr-1-9Qig" class="bento-item">
-					<img src="static/images/hrimpact.webp" alt="project 5" width="100%" />
-                    <figcaption>PEC Holding received an award after my Intranet team and I completed a new DEI section for ~5,000 foreign employee</figcaption>
-				</a>
-				<a href="#" class="bento-item">
-					<img src="static/images/intranetx5.webp" alt="project 6" width="100%" />
-                    <figcaption>Spearheading the X5 Group Intranet communities, overseeing the code of conduct and gamification rules, and recognizing employees' engagement on the portal through the internal merchandise shop</figcaption>
-				</a>
-			</div>
-		</section>
-
+            </h2>
+            <div class="bento-grid">
+                {% for project in projects %}
+                    <a href="{{ project.link_url }}" class="bento-item" target="_blank">
+                        <figure>
+                            <img src="{{ project.image_url }}" alt="Project image" />
+                            <figcaption>{{ project.description }}</figcaption>
+                        </figure>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+        
         <section class="container">
             <h2>
                 <small>
-                    Frontend Development 
+                    Website Development 
                 </small>
                 Repositories Portfolio
             </h2>
@@ -180,7 +163,7 @@
                     <div class="repos-container" data-repos-container></div>
                 
             </div>
-        </section>
+        </section>        
 
 <!--ref section-->
 <section id="references" class="references">
@@ -277,6 +260,7 @@
 			</div>
 		</section>
     </main>
+    
     <script src="static/js/index.js"></script>
     <script src="static/js/winter.js"></script>
     <script src="static/js/skills.js"></script>

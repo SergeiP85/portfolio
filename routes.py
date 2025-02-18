@@ -2,7 +2,7 @@
 from flask import Blueprint, render_template, redirect, request, url_for
 from flask_login import login_user, logout_user, login_required
 from werkzeug.security import check_password_hash
-from models import AboutMeSection, Experience, HeroContent, Page, User
+from models import AboutMeSection, Experience, HeroContent, Page, User, Project
 
 app_routes = Blueprint('app_routes', __name__)
 
@@ -11,7 +11,16 @@ def index():
     hero = HeroContent.query.first()
     about_me_section = AboutMeSection.query.first()
     experiences = Experience.query.all()
-    return render_template('index.html', hero=hero, about_me_section=about_me_section, experiences=experiences)
+    projects = Project.query.all()
+
+    # Отладка
+    print(f"Hero: {hero}")
+    print(f"Projects found: {len(projects)}")
+    for p in projects:
+        print(f"{p.id}: {p.image_url} | {p.link_url} | {p.description}")
+
+    return render_template('index.html', hero=hero, about_me_section=about_me_section, experiences=experiences, projects=projects)
+
 
 @app_routes.route('/login', methods=['GET', 'POST'])
 def login():

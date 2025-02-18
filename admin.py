@@ -4,7 +4,7 @@ from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager, current_user
 from markupsafe import Markup
-from models import AboutMeSection, Experience, HeroContent, db, User, Page
+from models import AboutMeSection, Experience, HeroContent, db, User, Page, Project
 
 # Настройка логина
 login_manager = LoginManager()
@@ -44,6 +44,12 @@ class ExperienceAdmin(SecureModelView):
         'description': _format_description
     }
 
+class ProjectAdmin(ModelView):
+    column_list = ['image_url', 'link_url', 'description']
+    form_columns = ['image_url', 'link_url', 'description']
+    column_searchable_list = ['description']
+    column_filters = ['link_url']
+
 # Инициализация админки
 def init_admin(app):
     login_manager.init_app(app)
@@ -52,3 +58,4 @@ def init_admin(app):
     admin.add_view(SecureModelView(HeroContent, db.session))
     admin.add_view(SecureModelView(AboutMeSection, db.session))
     admin.add_view(SecureModelView(Experience, db.session))
+    admin.add_view(ProjectAdmin(Project, db.session))

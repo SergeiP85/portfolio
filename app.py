@@ -4,6 +4,8 @@ from flask_migrate import Migrate
 from models import db
 from routes import app_routes
 from admin import init_admin
+from models import Project
+
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'

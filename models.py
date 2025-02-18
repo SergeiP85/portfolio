@@ -37,3 +37,12 @@ class Experience(db.Model):
     years = db.Column(db.String(20), nullable=False)
     description = db.Column(db.Text, nullable=False)
     image_url = db.Column(db.String(300), nullable=False)
+
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    image_url = db.Column(db.String(255), nullable=False)  # Ссылка на картинку
+    link_url = db.Column(db.String(255), nullable=False)   # Ссылка для перехода
+    description = db.Column(db.Text, nullable=False)       # Описание проекта
+
+    def __repr__(self):
+        return f"<Project {self.description[:30]}...>"
