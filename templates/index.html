@@ -124,7 +124,7 @@
                         </figure>                      
                         <h3>{{ exp.job_title }}</h3>
                         <div>{{ exp.years }}</div>
-                        <p>{{ exp.description }}</p>
+                        <p>{{ exp.description| safe }}</p>
                     </article>
                 {% endfor %}
             </div>
