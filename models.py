@@ -11,8 +11,11 @@ class User(db.Model, UserMixin):
 
 class Page(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    content = db.Column(db.Text, nullable=False)
+    title = db.Column(db.String(255), nullable=False)
+    slug = db.Column(db.String(255), unique=True, nullable=False)
+    content_blocks = db.Column(db.Text, nullable=False, default='[]')  # Храним JSON в текстовом формате
+
+
 
 class HeroContent(db.Model):
     id = db.Column(db.Integer, primary_key=True)

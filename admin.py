@@ -5,7 +5,9 @@ from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager, current_user
 from markupsafe import Markup
+from wtforms import TextAreaField
 from models import AboutMeSection, Experience, HeroContent, db, User, Page, Project
+import json
 
 # Настройка логина
 login_manager = LoginManager()
@@ -62,6 +64,32 @@ class ProjectAdmin(ModelView):
     column_searchable_list = ['description']
     column_filters = ['link_url']
 
+class PageAdmin(SecureModelView):
+    column_list = ['title', 'slug', 'content_blocks']
+    form_overrides = {
+        'content_blocks': TextAreaField
+    }
+    form_args = {
+        'content_blocks': dict(description='Введите блоки в формате JSON (например: [{"type": "text", "content": "Привет"}])')
+    }
+
+    def on_model_change(self, form, model, is_created):
+        # Валидация и форматирование JSON
+        import json
+        try:
+            parsed = json.loads(model.content_blocks)
+            if not isinstance(parsed, list):
+                raise ValueError("content_blocks должен быть списком JSON-объектов.")
+            model.content_blocks = json.dumps(parsed, indent=2, ensure_ascii=False)
+        except json.JSONDecodeError:
+            raise ValueError("Ошибка при парсинге JSON: Проверьте правильность структуры.")
+
+
+
+# Регистрируем админку
+def register_admin(admin):
+    admin.add_view(PageAdmin(Page, db.session))
+
 # Инициализация админки
 def init_admin(app):
     login_manager.init_app(app)
@@ -72,4 +100,3 @@ def init_admin(app):
     admin.add_view(SecureModelView(Experience, db.session))
     admin.add_view(ProjectAdmin(Project, db.session))
     admin.add_view(SecureModelView(User, db.session, name='Users'))
-    
