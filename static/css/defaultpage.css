@@ -153,4 +153,6 @@ ul li::marker {
     margin: auto;
     justify-content:center;
     display: flex;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }

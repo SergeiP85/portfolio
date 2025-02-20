@@ -48,4 +48,15 @@ def dynamic_page(slug):
     except json.JSONDecodeError:
         content_blocks = []
 
+    # Проверка структуры JSON
+    for block in content_blocks:
+        if isinstance(block, dict) and block.get("type") == "image_text_grid":
+            print(f"Отладка: block['items'] = {block.get('items')}, тип: {type(block.get('items'))}")
+
+            # Исправление ошибки
+            if not isinstance(block.get("items"), list):
+                print(f"Ошибка! block['items'] не список, а {type(block.get('items'))}: {block.get('items')}")
+                block["items"] = []  # Превращаем в пустой список
+
     return render_template('page.html', title=page.title, content_blocks=content_blocks)
+
