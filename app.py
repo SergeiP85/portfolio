@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_migrate import Migrate
-from models import db, Project, Settings  # Один импорт вместо трех
+from models import db  # Один импорт вместо трех
 from routes import app_routes
 from admin import init_admin
 

@@ -56,3 +56,11 @@ class Settings(db.Model):
 
     def __repr__(self):
         return f"<Settings show_github={self.show_github}>"
+
+class Reference(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    quote = db.Column(db.Text, nullable=False)
+    reviewer = db.Column(db.String(255), nullable=False)
+    position = db.Column(db.String(255), nullable=False)
+    linkedin_url = db.Column(db.String(255), nullable=True)
+    image_url = db.Column(db.String(355), nullable=True)

@@ -164,62 +164,29 @@
         </section>
         {% endif %}
             
-
-<!--ref section-->
-<section id="references" class="references">
-    <h2>
-        <small>
-            References
-        </small>
-        Quotes
-    </h2>
-    <!--ref 1-->
-    <div class="wrapper">
-        <div class="ref-card">
-            <img src="static/images/quote.png" alt="quote">
-            <p>I had the pleasure of working with Sergei at Deutsche Bank starting in 2010. He supported me with internal communications campaigns, press relations, and media events, always showing great organization and reliability. He handled tasks efficiently and worked well under tight deadlines. His help was essential to the success of our department.</p>
-            
-            <p class="rev">I can recommend him for any role that values communication and teamwork.</p>
-            <img class="reviewer" src="static/images/marietta.jpg" alt="colleague 1">
-            <a href="https://www.linkedin.com/in/mariettanikolaeva/"><h3>Marietta Nikolaeva</h3></a>
-            <small>Head of Internal Communications, UniCredit Bank</small>
-        </div>
-    <!--ref 2-->
-        <div class="ref-card">
-            <img src="static/images/quote.png" alt="quote">
-            <p>I worked with Sergei in 2020-2023 during the development and launch of a new intranet product at X5 Retail Group, the leader in food retail in Russia. Sergei managed content and employee communications, successfully building a community of engaged platform users.
-            He also introduced gamification strategies that significantly boosted engagement. Sergei contributed to the product’s growth and evolution by ensuring all tasks were completed on time and aligned with the project goals. His efforts had a noticeable impact on employee interaction and engagement with the new platform.</p>
-            
-            <p class="rev">I highly recommend him for any role involving intranet management, internal communications, and employee engagement.</p>
-            <img class="reviewer" src="static/images/mokhtina.jpg" alt="colleague 2">
-            <a href="https://www.linkedin.com/in/olga-mokhtina-60630238/"><h3>Olga Mokhtina</h3></a>
-            <small>Intranet Project Manager, X5 Retail Group</small>
-        </div>
-    <!--ref 3-->
-        <div class="ref-card">
-            <img src="static/images/quote.png" alt="quote">
-            <p>Sergei joined our Comms&CSR team in 2010 and during his time at Deutsche Bank he proved himself to be a true Comms professional with a strong focus on internal communications and intranet management. Sergei supported the team in organizing corporate events locally and abroad and creating engaging newsletters that kept employees informed and connected. He also introduced new features and tools that made the intranet platform more interactive and effective. Sergei is easy to work with, reliable, and always ready to help the team.</p>
-            
-            <p class="rev">I recommend him for any role in communications and intranet management.</p>
-            <img class="reviewer" src="/static/images/latysheva.jpg" alt="colleague 3">
-            <a href="https://www.linkedin.com/in/olga-latysheva-7a672a19/"><h3>Olga Latysheva</h3></a>
-            <small>Head of PR, Communications and Marketing, Deutsche Bank</small>
-        </div>
-    <!--ref 4-->
-        <div class="ref-card">
-            <img src="static/images/quote.png" alt="quote">
-            <p>Sergei was a valuable member of our Corporate Culture and HR team since he joined PEC Holding in 2023. He demonstrated exceptional creativity and professionalism in editing photos and videos, producing engaging content that promoted corporate culture and values. He successfully revamped our corporate Intranet, enhancing its UX/UI and adding interactive features that boosted employee engagement. Notably, he created a new Intranet section for international colleagues, earning our company a national HR award for inclusive workplace practices.</p>
-            
-            <p class="rev">I highly recommend him for any communications or Intranet management role.</p>
-            <img class="reviewer" src="static/images/meredova.jpg" alt="colleague 4">
-            <a href="https://www.linkedin.com/in/anastasia-meredova-40467334b/"><h3>Anastasia Meredova</h3></a>
-            <small>Internal Communications Manager, PEC Logistics</small>
-        </div>
-    </div>
-<div>
-    <small>See all recommendations on my <a href="https://www.linkedin.com/in/sergeipastushenkonenewyork/details/recommendations/?detailScreenTabIndex=0" target="_blank">&nbsplinkedin page</a></small>
-</div>
-</section>
+        {% if references %}
+        <section id="references" class="references">
+            <h2>
+                <small>References</small>
+                Quotes
+            </h2>
+            <div class="wrapper">
+                {% for ref in references %}
+                <div class="ref-card">
+                    <img src="{{ url_for('static', filename='images/quote.png') }}" alt="quote">
+                    <p>{{ ref.quote|safe }}</p>
+                    <img class="reviewer" src="{{ ref.image_url }}" alt="colleague">
+                    <h3>{{ ref.reviewer|safe }}</h3>
+                    <a href="{{ ref.linkedin_url }}"><h3>{{ ref.name }}</h3></a>
+                    <small>{{ ref.position|safe }}, {{ ref.company }}</small>
+                </div>
+                {% endfor %}
+            </div>
+            <div>
+                <small>See all recommendations on my&nbsp;<a href="https://www.linkedin.com/in/sergeipastushenkonenewyork/details/recommendations/?detailScreenTabIndex=0" target="_blank">LinkedIn page</a></small>
+            </div>
+        </section>
+        {% endif %}
 
         <section class="chatbot container">
 			<h2>
