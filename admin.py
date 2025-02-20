@@ -6,7 +6,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager, current_user
 from markupsafe import Markup
 from wtforms import TextAreaField
-from models import AboutMeSection, Experience, HeroContent, db, User, Page, Project
+from models import AboutMeSection, Experience, HeroContent, Settings, db, User, Page, Project
 import json
 
 # Настройка логина
@@ -84,7 +84,9 @@ class PageAdmin(SecureModelView):
         except json.JSONDecodeError:
             raise ValueError("Ошибка при парсинге JSON: Проверьте правильность структуры.")
 
-
+class SettingsAdmin(ModelView):
+    form_excluded_columns = ('id',)
+    column_labels = {'show_github': 'Show GitHub Section'}
 
 # Регистрируем админку
 def register_admin(admin):
@@ -100,3 +102,4 @@ def init_admin(app):
     admin.add_view(SecureModelView(Experience, db.session))
     admin.add_view(ProjectAdmin(Project, db.session))
     admin.add_view(SecureModelView(User, db.session, name='Users'))
+    admin.add_view(SettingsAdmin(Settings, db.session, name="GitHub Settings"))

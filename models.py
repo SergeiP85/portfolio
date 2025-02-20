@@ -49,3 +49,10 @@ class Project(db.Model):
 
     def __repr__(self):
         return f"<Project {self.description[:30]}...>"
+
+class Settings(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    show_github = db.Column(db.Boolean, default=True)  # Флаг видимости
+
+    def __repr__(self):
+        return f"<Settings show_github={self.show_github}>"

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, request, url_for, abort
 from flask_login import login_user, logout_user, login_required
 from werkzeug.security import check_password_hash
-from models import AboutMeSection, Experience, HeroContent, Page, User, Project
+from models import AboutMeSection, Experience, HeroContent, Page, User, Project, Settings
 import json
 
 app_routes = Blueprint('app_routes', __name__)
@@ -12,8 +12,9 @@ def index():
     about_me_section = AboutMeSection.query.first()
     experiences = Experience.query.all()
     projects = Project.query.all()
+    settings = Settings.query.first()  # Получаем настройки
 
-    return render_template('index.html', hero=hero, about_me_section=about_me_section, experiences=experiences, projects=projects)
+    return render_template('index.html', hero=hero, about_me_section=about_me_section, experiences=experiences, projects=projects, show_github=settings.show_github if settings else False)
 
 @app_routes.route('/login', methods=['GET', 'POST'])
 def login():

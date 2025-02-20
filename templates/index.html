@@ -147,11 +147,10 @@
             </div>
         </section>
         
+        {% if show_github %}
         <section class="container">
             <h2>
-                <small>
-                    Website Development 
-                </small>
+                <small>Website Development</small>
                 Repositories Portfolio
             </h2>
             <div class="git-app">
@@ -159,11 +158,12 @@
                     <input type="text" class="search-input" placeholder="Enter GIT Hub Username..." data-search-input>
                     <button type="submit" class="search-button">Search</button>
                 </form>
-                    <div class="user-info-container" data-user-info-container></div>
-                    <div class="repos-container" data-repos-container></div>
-                
+                <div class="user-info-container" data-user-info-container></div>
+                <div class="repos-container" data-repos-container></div>
             </div>
-        </section>        
+        </section>
+        {% endif %}
+            
 
 <!--ref section-->
 <section id="references" class="references">
