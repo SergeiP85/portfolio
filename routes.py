@@ -44,26 +44,26 @@ def show_page(page_id):
 
 @app_routes.route('/pages/<slug>')
 def dynamic_page(slug):
+    print(f"🔍 Запрашиваемый slug: {slug}")  # Проверка входящего слага
+
     page = Page.query.filter_by(slug=slug).first()
+
     if not page:
+        print("❌ Страница не найдена в базе данных!")
+        print("📌 Все записи в таблице Page:", [(p.id, p.slug) for p in Page.query.all()])
         abort(404)
+
+    print(f"✅ Найдена страница: {page.title}, slug: {page.slug}")  # Проверяем, нашелся ли slug
 
     try:
         content_blocks = json.loads(page.content_blocks)
     except json.JSONDecodeError:
         content_blocks = []
+        print("⚠ Ошибка парсинга JSON")
 
-    # Проверка структуры JSON
-    for block in content_blocks:
-        if isinstance(block, dict) and block.get("type") == "image_text_grid":
-            print(f"Отладка: block['items'] = {block.get('items')}, тип: {type(block.get('items'))}")
-
-            # Исправление ошибки
-            if not isinstance(block.get("items"), list):
-                print(f"Ошибка! block['items'] не список, а {type(block.get('items'))}: {block.get('items')}")
-                block["items"] = []  # Превращаем в пустой список
-
+    print("📄 Рендерим шаблон page.html")  # Проверяем, что доходим до рендеринга
     return render_template('page.html', title=page.title, content_blocks=content_blocks)
+
 
 @app_routes.route('/add_reference', methods=['POST'])
 def add_reference():
@@ -81,6 +81,3 @@ def add_reference():
     db.session.commit()
     
     return redirect(url_for('app_routes.references'))
-
-
-

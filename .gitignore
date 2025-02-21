@@ -12,7 +12,4 @@ __pycache__/
 logs/
 *.log
 
-# Игнорируем кэш Flask
-instance/
-.env
-.DS_Store
+
