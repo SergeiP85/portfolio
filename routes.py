@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, request, url_for, abort
 from flask_login import login_user, logout_user, login_required
 from werkzeug.security import check_password_hash
-from models import db, AboutMeSection, Experience, HeroContent, Page, User, Project, Settings, Reference
+from models import db, AboutMeSection, Experience, HeroContent, Page, User, Project, Settings, ChatSettings, Reference
 import json
 
 app_routes = Blueprint('app_routes', __name__)
@@ -14,8 +14,11 @@ def index():
     projects = Project.query.all()
     settings = Settings.query.first()  # Получаем настройки
     references = Reference.query.all()
+    chat_settings = ChatSettings.query.first() 
     
-    return render_template('index.html', hero=hero, about_me_section=about_me_section, experiences=experiences, projects=projects, show_github=settings.show_github if settings else False, references=references)
+    print(chat_settings)  # Печать данных для отладки
+
+    return render_template('index.html', hero=hero, about_me_section=about_me_section, experiences=experiences, projects=projects, chat_settings=chat_settings, show_github=settings.show_github if settings else False, references=references)
 
 @app_routes.route('/login', methods=['GET', 'POST'])
 def login():
@@ -78,4 +81,6 @@ def add_reference():
     db.session.commit()
     
     return redirect(url_for('app_routes.references'))
+
+
 

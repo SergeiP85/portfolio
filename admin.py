@@ -6,7 +6,7 @@ from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager, current_user
 from markupsafe import Markup
 from wtforms import TextAreaField
-from models import AboutMeSection, Experience, HeroContent, Settings, db, User, Page, Project, Reference
+from models import AboutMeSection, ChatSettings, Experience, HeroContent, Settings, db, User, Page, Project, Reference
 import json
 
 # Настройка логина
@@ -92,6 +92,15 @@ class ReferenceAdmin(ModelView):
     column_list = ['quote', 'reviewer', 'position', 'linkedin_url', 'image_url']
     form_columns = ['quote', 'reviewer', 'position', 'linkedin_url', 'image_url']
 
+class ChatSettingsAdmin(ModelView):
+    form_overrides = {
+        'description': TextAreaField,
+    }
+    form_columns = ('description', 'is_visible')
+    can_create = True
+    can_delete = True
+    column_labels = {'is_visible': 'Show Chatbot'}
+
 # Регистрируем админку
 def register_admin(admin):
     admin.add_view(PageAdmin(Page, db.session))
@@ -108,3 +117,4 @@ def init_admin(app):
     admin.add_view(SecureModelView(User, db.session, name='Users'))
     admin.add_view(SettingsAdmin(Settings, db.session, name="GitHub Settings"))
     admin.add_view(ReferenceAdmin(Reference, db.session))
+    admin.add_view(ChatSettingsAdmin(ChatSettings, db.session))

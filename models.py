@@ -64,3 +64,8 @@ class Reference(db.Model):
     position = db.Column(db.String(255), nullable=False)
     linkedin_url = db.Column(db.String(255), nullable=True)
     image_url = db.Column(db.String(355), nullable=True)
+
+class ChatSettings(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.Text, nullable=False, default="Default chatbot description")
+    is_visible = db.Column(db.Boolean, default=True)

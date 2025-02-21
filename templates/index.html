@@ -187,45 +187,46 @@
             </div>
         </section>
         {% endif %}
-
+ 
+    {% if chat_settings and chat_settings.is_visible %}
         <section class="chatbot container">
-			<h2>
-				<small>
-					Talk to me (soon)
-				</small>
-				Chatbot
-			</h2>
-			<div class="chatbot-blue">
-				<div class="chat-info">
-					<h3>Azure AI Chatbot</h3>
-					<p>I've put together a chatbot here which knows all my skills, work experience and has a copy of my CV. You can use it to ask questions about me to get a better idea of who I am and what I've done.</p>
-					<p>You can also download my resume here if you want to take a look at it. If you have a project you think I'd be a good fit for, please get in touch!</p>
-					<a href="static/files/Resume_Sergei_P.docx" class="button black">Download Resume</a>
-				</div>
-				<div class="chat-box">
-					<div class="scroll-area">
-						<ul id="chat-log">
-							<li>
-								<span class="avatar bot">AI</span>
-								<div class="message">
-									Hi, I'm a chatbot that lets you interact with this portfolio and CV. How can I help?
-								</div>
-							</li>
-							<li>
-								<span class="avatar user">User</span>
-								<div class="message">
-									I have a question to ask you about this resume
-								</div>
-							</li>
-						</ul>
-					</div>
-					<div class="chat-message">
-						<input type="text" placeholder="Hey Sergei, what skills are you best at?">
-						<button class="button black">Send</button>
-					</div>
-				</div>
-			</div>
-		</section>
+            <h2>
+                <small>Talk to me (soon)</small>
+                Chatbot
+            </h2>
+            <div class="chatbot-blue">
+                <div class="chat-info">
+                    <h3>Azure AI Chatbot</h3>
+                    <p>{{ chat_settings.description|safe }}</p>
+                    <a href="static/files/Resume_Sergei_P.docx" class="button black">Download Resume</a>
+                </div>
+                <div class="chat-box">
+                    <div class="scroll-area">
+                        <ul id="chat-log">
+                            <li>
+                                <span class="avatar bot">AI</span>
+                                <div class="message">
+                                    Hi, I'm a chatbot that lets you interact with this portfolio and CV. How can I help?
+                                </div>
+                            </li>
+                            <li>
+                                <span class="avatar user">User</span>
+                                <div class="message">
+                                    I have a question to ask you about this resume
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="chat-message">
+                        <input type="text" placeholder="Hey Sergei, what skills are you best at?">
+                        <button class="button black">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    
+    
     </main>
     
     <script src="static/js/index.js"></script>
