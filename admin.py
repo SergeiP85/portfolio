@@ -6,8 +6,9 @@ from flask_admin.contrib.sqla import ModelView
 from flask_login import LoginManager, current_user
 from markupsafe import Markup
 from wtforms import TextAreaField
-from models import AboutMeSection, ChatSettings, Experience, HeroContent, Settings, db, User, Page, Project, Reference
-import json
+from models import AboutMeSection, ChatSettings, Experience, HeroContent, Page, Settings, db, User, Project, Reference
+from wtforms.fields import SelectField
+
 
 # Настройка логина
 login_manager = LoginManager()
@@ -33,7 +34,7 @@ class MyAdminIndexView(AdminIndexView):
         return self.render('admin/custom_home.html',
                            user_count=user_count,
                            project_count=project_count,
-                           experience_count=experience_count, page_count=Page.query.count())
+                           experience_count=experience_count)
 
 
 class SecureModelView(ModelView):
@@ -45,6 +46,17 @@ class SecureModelView(ModelView):
 
 # Настраиваем админку с корректным endpoint
 admin = Admin(name='Admin Panel', template_mode='bootstrap3', index_view=MyAdminIndexView())
+
+from flask_admin.contrib.sqla import ModelView
+
+class PageAdmin(ModelView):
+    form_columns = ['slug', 'title', 'content']  
+
+    def on_model_change(self, form, model, is_created):
+        print(f"Form data: {form.data}")  # Выведем данные формы
+        return super().on_model_change(form, model, is_created)
+
+
 
 class ExperienceAdmin(SecureModelView):
     form_columns = ['company_name', 'job_title', 'years', 'description', 'image_url']
@@ -64,26 +76,6 @@ class ProjectAdmin(ModelView):
     column_searchable_list = ['description']
     column_filters = ['link_url']
 
-class PageAdmin(SecureModelView):
-    column_list = ['title', 'slug', 'content_blocks']
-    form_overrides = {
-        'content_blocks': TextAreaField
-    }
-    form_args = {
-        'content_blocks': dict(description='Введите блоки в формате JSON (например: [{"type": "text", "content": "Привет"}])')
-    }
-
-    def on_model_change(self, form, model, is_created):
-        # Валидация и форматирование JSON
-        import json
-        try:
-            parsed = json.loads(model.content_blocks)
-            if not isinstance(parsed, list):
-                raise ValueError("content_blocks должен быть списком JSON-объектов.")
-            model.content_blocks = json.dumps(parsed, indent=2, ensure_ascii=False)
-        except json.JSONDecodeError:
-            raise ValueError("Ошибка при парсинге JSON: Проверьте правильность структуры.")
-
 class SettingsAdmin(ModelView):
     form_excluded_columns = ('id',)
     column_labels = {'show_github': 'Show GitHub Section'}
@@ -101,15 +93,11 @@ class ChatSettingsAdmin(ModelView):
     can_delete = True
     column_labels = {'is_visible': 'Show Chatbot'}
 
-# Регистрируем админку
-def register_admin(admin):
-    admin.add_view(PageAdmin(Page, db.session))
 
 # Инициализация админки
 def init_admin(app):
     login_manager.init_app(app)
     admin.init_app(app)
-    admin.add_view(SecureModelView(Page, db.session))
     admin.add_view(SecureModelView(HeroContent, db.session))
     admin.add_view(SecureModelView(AboutMeSection, db.session))
     admin.add_view(SecureModelView(Experience, db.session))
@@ -118,3 +106,4 @@ def init_admin(app):
     admin.add_view(SettingsAdmin(Settings, db.session, name="GitHub Settings"))
     admin.add_view(ReferenceAdmin(Reference, db.session))
     admin.add_view(ChatSettingsAdmin(ChatSettings, db.session))
+    admin.add_view(ModelView(Page, db.session))

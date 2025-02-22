@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, redirect, request, url_for, abort
+from flask import current_app
+from flask import Blueprint, render_template, redirect, request, url_for
 from flask_login import login_user, logout_user, login_required
 from werkzeug.security import check_password_hash
-from models import db, AboutMeSection, Experience, HeroContent, Page, User, Project, Settings, ChatSettings, Reference
-import json
+from models import Page, db, AboutMeSection, Experience, HeroContent, User, Project, Settings, ChatSettings, Reference
 
 app_routes = Blueprint('app_routes', __name__)
 
@@ -14,11 +14,23 @@ def index():
     projects = Project.query.all()
     settings = Settings.query.first()  # Получаем настройки
     references = Reference.query.all()
-    chat_settings = ChatSettings.query.first() 
+    chat_settings = ChatSettings.query.first()
     
     print(chat_settings)  # Печать данных для отладки
 
     return render_template('index.html', hero=hero, about_me_section=about_me_section, experiences=experiences, projects=projects, chat_settings=chat_settings, show_github=settings.show_github if settings else False, references=references)
+
+# Используем app_routes для маршрута /page/<slug>
+@app_routes.route('/page/<slug>')
+def show_page(slug):
+    try:
+        page = Page.query.filter_by(slug=slug).first_or_404()
+        content_blocks = page.get_content_blocks()  # Получаем блоки из модели
+        return render_template('page_template.html', page=page, content_blocks=content_blocks)
+    except Exception as e:
+        current_app.logger.error(f"Ошибка при загрузке страницы с slug {slug}: {e}")
+        return render_template('errors/500.html'), 500
+
 
 @app_routes.route('/login', methods=['GET', 'POST'])
 def login():
@@ -36,34 +48,6 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('app_routes.login'))
-
-@app_routes.route('/page/<int:page_id>')
-def show_page(page_id):
-    page = Page.query.get_or_404(page_id)
-    return render_template('custom_page.html', page=page)
-
-@app_routes.route('/pages/<slug>')
-def dynamic_page(slug):
-    print(f"🔍 Запрашиваемый slug: {slug}")  # Проверка входящего слага
-
-    page = Page.query.filter_by(slug=slug).first()
-
-    if not page:
-        print("❌ Страница не найдена в базе данных!")
-        print("📌 Все записи в таблице Page:", [(p.id, p.slug) for p in Page.query.all()])
-        abort(404)
-
-    print(f"✅ Найдена страница: {page.title}, slug: {page.slug}")  # Проверяем, нашелся ли slug
-
-    try:
-        content_blocks = json.loads(page.content_blocks)
-    except json.JSONDecodeError:
-        content_blocks = []
-        print("⚠ Ошибка парсинга JSON")
-
-    print("📄 Рендерим шаблон page.html")  # Проверяем, что доходим до рендеринга
-    return render_template('page.html', title=page.title, content_blocks=content_blocks)
-
 
 @app_routes.route('/add_reference', methods=['POST'])
 def add_reference():
