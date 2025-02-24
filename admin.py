@@ -106,4 +106,4 @@ def init_admin(app):
     admin.add_view(SettingsAdmin(Settings, db.session, name="GitHub Settings"))
     admin.add_view(ReferenceAdmin(Reference, db.session))
     admin.add_view(ChatSettingsAdmin(ChatSettings, db.session))
-    admin.add_view(ModelView(Page, db.session))
+ 

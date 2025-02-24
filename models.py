@@ -63,6 +63,9 @@ class ChatSettings(db.Model):
     description = db.Column(db.Text, nullable=False, default="Default chatbot description")
     is_visible = db.Column(db.Boolean, default=True)
 
+import json
+from flask import current_app
+
 class Page(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     slug = db.Column(db.String(100), unique=True, nullable=False)
@@ -70,4 +73,22 @@ class Page(db.Model):
     content = db.Column(db.Text, nullable=False)  # Здесь можно хранить JSON
 
     def get_content_blocks(self):
-        return json.loads(self.content)  # Декодируем JSON в список блоков
+        try:
+            # Преобразуем строку JSON в список
+            content_blocks = json.loads(self.content)
+            
+            # Проверяем, что это список
+            if not isinstance(content_blocks, list):
+                current_app.logger.error(f"Ошибка: содержимое для страницы '{self.slug}' не является списком.")
+                return []  # Возвращаем пустой список, если данные некорректные
+            
+            return content_blocks
+        except json.JSONDecodeError:
+            # Ловим ошибку, если JSON некорректен
+            current_app.logger.error(f"Ошибка при декодировании JSON для страницы '{self.slug}'.")
+            return []  # Возвращаем пустой список при ошибке декодирования
+        except Exception as e:
+            # Ловим другие исключения и выводим ошибку
+            current_app.logger.error(f"Неизвестная ошибка при получении контент-блоков для страницы '{self.slug}': {str(e)}")
+            return []  # Возвращаем пустой список при ошибке
+
